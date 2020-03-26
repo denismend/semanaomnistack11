@@ -1,33 +1,16 @@
 const express = require('express');
-const crypto = require('crypto');
-const connection = require('./database/connection');
+
+const OngController = require('./controllers/OngController');
+const IncidentController = require('./controllers/IncidentController');
 
 const routes = express.Router();
 
-routes.get('/ongs', async (request, response) => {
-    const ongs = await connection('ongs').select('*');
-    
-    return response.json( ongs ); 
-});
+routes.get('/ongs', OngController.index);
+routes.post('/ongs', OngController.create);
 
-routes.post('/ongs', async (request, response) => {
-    const { name, email, whatsapp, city, uf } = request.body; // body
-
-    const id = crypto.randomBytes(4).toString('HEX');
-
-    await connection('ongs').insert({
-        id,
-        name,
-        email,
-        whatsapp,
-        city,
-        uf
-    })
-
-    //return response.send('Hello World !');
-    return response.json({ id });
-});
-
+routes.get('/incidents', IncidentController.index);
+routes.post('/incidents', IncidentController.create);
+routes.delete('/incidents/:id', IncidentController.delete);
 
 /*
 routes.get('/users', (request, response) => {
@@ -63,6 +46,5 @@ routes.post('/users', (request, response) => {
         idade: 26
     } );
 }); */
-
 
 module.exports = routes;
