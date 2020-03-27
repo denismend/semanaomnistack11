@@ -3,7 +3,7 @@ import React from 'react';
 import './global.css';
 
 //import Header from './Header';
-import Logon from './pages/Logon';
+import Routes from './routes';
 
 // JSX -- Javascript / XML
 
@@ -27,7 +27,7 @@ function App() {
       <button onClick={increment}>Incrementar</button>
     </div>
     */
-    <Logon />
+    <Routes />
   );
 }
 
